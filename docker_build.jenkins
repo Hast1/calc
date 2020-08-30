@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo " ============== starting docker container =================="
                 sh '''
-                docker run --rm --name my_calc -p 5000:5000 calc
+                docker run --rm --name my_calc -p 5000:5000 -d calc
                 '''
             }
         }
