@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo " ============== stopping old docker container =================="
                 sh '''
-                docker stop $(docker ps -q -f "name=my_calc")
+                docker stop my_calc || true
                 '''
             }
         }
