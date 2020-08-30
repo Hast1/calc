@@ -19,7 +19,7 @@ pipeline {
             }
         
 		}
-		stage("docker stop") {
+		stage("stopping old docker container") {
             steps {
                 echo " ============== stopping old docker container =================="
                 sh '''
@@ -27,7 +27,7 @@ pipeline {
                 '''
             }
         }
-		stage("docker run") {
+		stage("starting docker container") {
             steps {
                 echo " ============== starting docker container =================="
                 sh '''
