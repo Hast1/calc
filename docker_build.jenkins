@@ -1,0 +1,39 @@
+#!groovy
+// Run docker build
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("create docker image") {
+            steps {
+                echo " ============== start building image =================="
+                sh ''''docker build -t calc .''''               
+            }
+        
+		}
+		stage("docker stop") {
+            steps {
+                echo " ============== stopping old docker container =================="
+                sh '''
+                docker stop my_calc
+                '''
+            }
+        }
+		stage("docker run") {
+            steps {
+                echo " ============== starting docker container =================="
+                sh '''
+                docker run --rm --name my_calc -p 5000:5000 calc
+                '''
+            }
+        }
+    }
+}
