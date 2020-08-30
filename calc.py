@@ -8,32 +8,32 @@ class Quote(Resource):
     def get(self, operation, a, b):
         if operation in ('add'):
             try:
-                c = a + b
+                c = float(a) + float(b)
             except:
                 abort(make_response(jsonify({'error': 'Not found'}), 404))
-            return jsonify(a+b)
+            return jsonify(c)
         elif operation in ('sub'):
             try:
-                c = a - b
+                c = float(a) - float(b)
             except:
                 abort(make_response(jsonify({'error': 'Not found'}), 404))
-            return jsonify(a-b)
+            return jsonify(c)
         elif operation in ('mul'):
             try:
-                c = a * b
+                c = float(a) * float(b)
             except:
                 abort(make_response(jsonify({'error': 'Not found'}), 404))
-            return jsonify(a*b)
+            return jsonify(c)
         elif operation in ('div'):
             try:
-                c = a / b
+                c = float(a) / float(b)
             except:
                 abort(make_response(jsonify({'error': 'Not found'}), 404))
-            return jsonify(a/b)
+            return jsonify(c)
         else:
             abort(make_response(jsonify({'error': 'Not found'}), 404))
 
-api.add_resource(Quote, '/calc/<int:a>,<int:b>,<string:operation>')
+api.add_resource(Quote, '/calc/<string:a>,<string:b>,<string:operation>')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
